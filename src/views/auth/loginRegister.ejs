@@ -39,10 +39,20 @@
                     
                     <div class="modal-body">
                          <!--alert-->
-                        <!-- <div>
-                            <div class="alert alert-danger">error</div>
-                            <div class="alert alert-success">success</div>
-                        </div> -->                       
+                         <% if(errors != "") {%>
+                            <% errors.forEach((item) => { %>
+                                <script> openRegisterModal();</script>
+                                <div class="alert alert-danger"><%- item %></div>
+                           <% }) %>
+                        <% } %>
+                        
+                        <% if(success != "") {%>
+                            <% success.forEach((item) => { %>
+                                <script> openRegisterModal();</script>
+                                <div class="alert alert-success"><%- item %></div>
+                           <% }) %>
+                        <% } %>
+                                          
                         <!-- login -->
                         <div class="box">
                             <div class="content">

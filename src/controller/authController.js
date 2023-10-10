@@ -1,14 +1,18 @@
 import { validationResult } from "express-validator";
 import { authSer } from "./../Services/index";
-import { userDB } from "../models/userDb";
+
 
 let getLoginRegister =  (req,res) => {
-    return res.render("auth/loginRegister");
+    return res.render("auth/loginRegister",{
+        errors: req.flash("error"),
+        success: req.flash("success")
+    });
 }
 
 //update user to database (assigment 4)
-let postRegister = (req,res) => {
+let postRegister = async (req,res) => {
     let errorArr= [];
+    let successArr = [];
     // console.log(validationResult(req));
     // console.log(validationResult(req).isEmpty()); 
     // console.log("-------------------------");
@@ -21,25 +25,21 @@ let postRegister = (req,res) => {
             //push errors into array
             errorArr.push(item.msg)
         })
+        req.flash("errors", errorArr)
         // console.log(errors)
-        console.log("Error:", errorArr)
+        // console.log("Error:", errorArr)
         return res.redirect("/loginRegister")
     } 
     try {
-        let userItem = {
-            username: req.body.username,
-            password: req.body.password
-        }
         //successfully create a new user
-        userDB.push(userItem)
-        console.log(req.body)
-
-        authSer.register(req.body.username,req.body.password) 
+        let createUserSuccess = await authSer.register(req.body.username,req.body.password) ;
+        successArr.push(createUserSuccess);
+        req.flash("success", successArr)
         return res.redirect("/loginRegister");
     } catch(error) {
         // fail to create a new user
         errorArr.push(error)
-        console.log("Error:", errorArr)
+        req.flash("error", errorArr)
         return res.redirect("/loginRegister");
     }
     
