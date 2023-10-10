@@ -17,7 +17,7 @@ let postRegister = (req,res) => {
     // if there are error, show up error
     if(!validationResult(req).isEmpty()) {
         let errors = Object.values(validationResult(req).mapped());
-        errors.forEach(item => {\
+        errors.forEach(item => {
             //push errors into array
             errorArr.push(item.msg)
         })
