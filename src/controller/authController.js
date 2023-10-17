@@ -3,7 +3,7 @@ import { authSer } from "./../Services/index";
 
 
 let getLoginRegister =  (req,res) => {
-    return res.render("auth/loginRegister",{
+    return res.render("auth/loginRegister/loginRegister",{
         errors: req.flash("error"),
         success: req.flash("success")
     });
@@ -25,7 +25,7 @@ let postRegister = async (req,res) => {
             //push errors into array
             errorArr.push(item.msg)
         })
-        req.flash("errors", errorArr)
+        req.flash("error", errorArr)
         // console.log(errors)
         // console.log("Error:", errorArr)
         return res.redirect("/loginRegister")

@@ -7,10 +7,15 @@ export const transSuccess  ={
     userCreated: (username) =>{
         return `Account <Strong> ${username} </Strong> is created successfully`;
         
+    },
+    loginSuccess: (username) => {
+        return `${username} Logins successfully`
     }
 }
 
 export const transError = {
-    account_in_use: "Username is used already"
+    account_in_use: "Username is used already",
+    login_failed: "Username or Password Incorrect",
+    server_error: "Server error, please contact us for help"
 }
 

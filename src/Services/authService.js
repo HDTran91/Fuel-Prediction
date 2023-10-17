@@ -10,16 +10,17 @@ let register = (username,password) => {
         if(userByUsername) {
             return reject(transError.account_in_use)
         }
-        let salt = bcrypt.genSaltSync(10);
-        let userItem = {
-            username: username,
-            password: bcrypt.hashSync(password, salt)
-        };
-
-        //create user and update it to database (assignment 4)
-        let user = await UserModel.createNew(userItem);
-        resolve(transSuccess.userCreated(user.username))
-        
+        else {
+            let salt = bcrypt.genSaltSync(10);
+            let userItem = {
+                username: username,
+                password: bcrypt.hashSync(password, salt)
+                };
+    
+            //create user and update it to database (assignment 4)
+            let user = await UserModel.createNew(userItem);
+            resolve(transSuccess.userCreated(user.username))
+        }     
     }
 )}
 

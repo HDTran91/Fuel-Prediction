@@ -1,10 +1,10 @@
 import express from "express";
 import {auth, fuelPrediction, profile} from "./../controller/index"
-import { authValid } from "../validation";
+import { authValid } from "./../validation";
 import passport from "passport";
 import InitPassportLocal from "../controller/passportController";
 
-// InitPassportLocal();
+InitPassportLocal();
 
 let router = express.Router();
 

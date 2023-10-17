@@ -1,35 +1,53 @@
-// import passport from "passport";
-// import passportLocal from "passport-local"
-// import { userDB } from "../models/userDb";
-
-// let LocalStrategy = passportLocal.Strategy;
-
+import passport from "passport";
+import passportLocal from "passport-local"
+import userModel from "./../models/userModel"
+import { transError, transSuccess } from "./../../lang/Eng";
 
 
-// let InitPassportLocal = (req,res) => {
-//     passport.use(new LocalStrategy({usernameField: "username", passwordField: "password", passReqTpCallback: true}, function (username,password,done) {
-//             try {
+let LocalStrategy = passportLocal.Strategy;
 
-//                 // console.log(username)
-//                 let user = userDB.map(e => e.username).includes(username)
-//                 if (!user) {
-//                     console.log("Username or Password Incorrect")
-//                 }
+
+
+let InitPassportLocal = () => {
+    passport.use(new LocalStrategy({usernameField: "username", passwordField: "password", passReqToCallback: true}, 
+    async function (req,username,password,done) {
+            try {
+
+                // console.log(username)
+                let user = await userModel.findByUsername(username);
+                if (!user) {
+                    return done(null, false, req.flash("error", transError.login_failed))
+                }
                 
-//                 // console.log(password)
-//                 let checkPassword = userDB.map(e => e.password).includes(password)
-//                 if (!checkPassword) {
-//                     console.log("Username or Password Incorrect")
-//                 } else {
-//                     console.log(`${username} Logins successfully`)
-//                 }
-//             } catch (error) {
-//                 console.log(error)
-//             }
-//         }
-//     ))
+                // console.log(password)
+                let checkPassword = await user.comparePassword(password)
+                if (!checkPassword) {
+                    return done(null, false, req.flash("error", transError.login_failed))
+                } else {
+                    return done(null, user, req.flash("success", transSuccess.loginSuccess(user.username)))
+                }
+            } catch (error) {
+                return done(null, false, req.flash("error",transError.server_error))
+                
+            }
+        }
+    ))
+    // save userId session
+    passport.serializeUser((user,done) => {
+        done(null, user._id);
+    });
+
+    passport.deserializeUser((id, done) => {
+        userModel.findUserById(id) 
+        .then(user => {
+            return done(null, user);
+        })
+        .catch(error => {
+            return done(error, null);
+        })
+    });
     
 
-// }
+}
 
-// module.exports = InitPassportLocal;
+module.exports = InitPassportLocal;
