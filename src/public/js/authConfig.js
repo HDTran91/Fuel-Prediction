@@ -20,7 +20,7 @@ function showLoginForm() {
       $('.modal-title').html('Login').addClass("text-center");
       
     });
-    // $('.error').removeClass('alert alert-danger').html('');
+    $('.error').removeClass('alert alert-danger').html('');
 }
   
 function openLoginModal() {

@@ -99,3 +99,21 @@ body {
     cursor: pointer; 
   }
   
+  .dropdown {
+    display: inline-block;
+    position: relative;
+  }
+  .dropdown-options {
+    display: none;
+    position: absolute;
+    overflow: auto;
+    text-align: left;
+    width: 150px;
+    margin-top: 5px;
+
+  }
+  
+  .dropdown:hover .dropdown-options {
+    display: block;
+  }
+  

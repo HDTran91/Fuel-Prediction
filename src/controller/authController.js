@@ -45,8 +45,23 @@ let postRegister = async (req,res) => {
     
     
 }
+let checkLoggedIn = (req,res,next) => {
+    if(!req.isAuthenticated()) {
+        return res.redirect("/loginRegister")
+    }
+    next();
+}
+let checkLoggedOut = (req,res,next) => {
+    if(req.isAuthenticated()) {
+        return res.redirect("/profile")
+    }
+    next();
+}
     
 module.exports = {
     getLoginRegister: getLoginRegister,
-    postRegister: postRegister
+    postRegister: postRegister,
+    checkLoggedIn: checkLoggedIn,
+    checkLoggedOut: checkLoggedOut
+
 }

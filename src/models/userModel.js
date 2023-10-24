@@ -11,7 +11,11 @@ let UserSchema = new Schema({
   password: String,
   gender: {type: String, default: "male"},
   phone: {type: Number, default: null},
-  address: {type: String, default: null},
+  address_1: {type: String, default: null},
+  address_2: {type: String, default: null},
+  city: {type: String, default: null},
+  state: {type: String, default: null},
+  zipCode: {type: String, default: null},
   createAt: {type: Number, default: Date.now},
   updateAt: {type: Number, default: Date.now},
   deleteAt: {type: Number, default: Date.now}
@@ -33,6 +37,9 @@ UserSchema.statics = {
     },
     findUserById(id) {
       return this.findById(id).exec();
+    },
+    updateUser(id, item) {
+      return this.findByIdAndUpdate(id, item).exec();
     }
 }
 UserSchema.methods = {

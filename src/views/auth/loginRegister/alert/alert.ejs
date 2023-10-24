@@ -1,7 +1,7 @@
 <% if(errors != "") {%>
     <% errors.forEach((item) => { %>
         <script> openRegisterModal();</script>
-        <div class="alert alert-danger"><%- item %></div>
+        <div class="error alert alert-danger"><%- item %></div>
    <% }) %>
 <% } %>
 
