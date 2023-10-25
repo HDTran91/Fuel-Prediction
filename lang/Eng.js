@@ -18,6 +18,7 @@ export const transSuccess  ={
     loginSuccess: (username) => {
         return `${username} Logins successfully`
     },
+    logoutSuccess: "Log out successfully",
     user_info_updated: "Information is updated successfully"
 }
 

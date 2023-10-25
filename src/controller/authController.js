@@ -1,5 +1,7 @@
 import { validationResult } from "express-validator";
 import { authSer } from "./../Services/index";
+import { transSuccess } from "../../lang/Eng";
+import userModel from "./../models/userModel"
 
 
 let getLoginRegister =  (req,res) => {
@@ -9,7 +11,7 @@ let getLoginRegister =  (req,res) => {
     });
 }
 
-//update user to database (assigment 4)
+
 let postRegister = async (req,res) => {
     let errorArr= [];
     let successArr = [];
@@ -45,6 +47,18 @@ let postRegister = async (req,res) => {
     
     
 }
+let getLogOut = (req,res, next) => {
+    //remove session passport
+    req.logout(function(err){
+        if(err) {
+            return next(err)
+        } 
+        req.flash("success", transSuccess.logoutSuccess);  
+        return res.redirect("/loginRegister")  
+    }); 
+    
+    
+}
 let checkLoggedIn = (req,res,next) => {
     if(!req.isAuthenticated()) {
         return res.redirect("/loginRegister")
@@ -57,11 +71,21 @@ let checkLoggedOut = (req,res,next) => {
     }
     next();
 }
+
+let checkTokenUpdated = async (username) => {
+    let user = await userModel.findByUsername(username);
+    if (user.tokenUpdated) {
+        return true
+    } else {
+        return false
+    }
+}
     
 module.exports = {
     getLoginRegister: getLoginRegister,
+    getLogOut: getLogOut,
     postRegister: postRegister,
     checkLoggedIn: checkLoggedIn,
-    checkLoggedOut: checkLoggedOut
-
+    checkLoggedOut: checkLoggedOut,
+    checkTokenUpdated: checkTokenUpdated
 }

@@ -15,10 +15,12 @@ let router = express.Router();
 let InitRoute =(app) => {
     router.get("/loginRegister", auth.checkLoggedOut, auth.getLoginRegister);
     router.get("/profile", auth.checkLoggedIn, profile.getProfile);
-    router.get("/fuelPrediction", fuelPrediction.getFuelPredictionController);
+    router.get("/fuelPrediction", auth.checkLoggedIn, fuelPrediction.getFuelPredictionController);
+    router.get("/logout", auth.checkLoggedIn, auth.getLogOut)
 
     router.post("/register", auth.checkLoggedOut, authValid.register, auth.postRegister)
 
+    
     router.post("/login", auth.checkLoggedOut, passport.authenticate("local",{
         successRedirect: "/profile",
         failureRedirect: "/loginRegister",
