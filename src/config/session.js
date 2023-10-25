@@ -3,7 +3,7 @@ import session from "express-session"
 const MongoStore = require("connect-mongo")(session);
 
 let sessionStore = new MongoStore ({
-    url: 'mongodb+srv://khoaiga91:Gacon_1001@fuelprediction.qbvwu7e.mongodb.net/?retryWrites=true&w=majority&appName=AtlasApp',
+    url: `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@${process.env.DB_NAME}.qbvwu7e.mongodb.net/?retryWrites=true&w=majority&appName=AtlasApp`,
     autoReconnect: true,
     //autoRemove: "native"
 })
