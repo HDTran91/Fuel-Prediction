@@ -44,5 +44,5 @@ app.use(passport.session());
 //Init routes
 initRoutes(app);
 app.listen(process.env.APP_PORT, process.env.APP_HOST, () => {
-    console.log(`Hello Group 1, I am running at ${process.env.APP_HOST}:${process.env.APP_PORT}/`)
+    console.log(`Hello Gacon, I am running at ${process.env.APP_HOST}:${process.env.APP_PORT}/`)
 });

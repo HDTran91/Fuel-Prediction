@@ -25,7 +25,8 @@ export const transSuccess  ={
 export const transError = {
     account_in_use: "Username is used already",
     login_failed: "Username or Password Incorrect",
-    server_error: "Server error, please contact us for help"
+    server_error: "Server error, please contact us for help",
+    user_not_found: "User Not Found"
 }
 
  

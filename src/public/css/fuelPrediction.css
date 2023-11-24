@@ -41,14 +41,15 @@ body {
   
   input[type="text"],
   input[type="number"],
-  input[type="date"] {
-    width: 100%;
+  input[type="date"],
+  input[type="string"]{
+    width: 96%;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
   }
   
-  button[type="submit"] {
+  button[type="button"] {
     width: 100%;
     padding: 10px;
     background-color: #007bff;
@@ -58,7 +59,7 @@ body {
     cursor: pointer;
   }
   
-  button[type="submit"]:hover {
+  button[type="button"]:hover {
     background-color: #0062cc;
   }
   
@@ -117,4 +118,4 @@ body {
   .dropdown:hover .dropdown-options{
     display: block;
 }
-  
+
